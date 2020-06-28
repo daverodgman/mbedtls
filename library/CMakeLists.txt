@@ -209,16 +209,26 @@ foreach(target IN LISTS target_libraries)
     # /library needs to be listed explicitly when building .c files outside
     # of /library (which currently means: under /3rdparty).
     target_include_directories(${target}
-        PUBLIC ${MBEDTLS_DIR}/include/
+        PUBLIC $<BUILD_INTERFACE:${MBEDTLS_DIR}/include/> $<INSTALL_INTERFACE:include>
         PUBLIC ${thirdparty_inc_public}
-        PRIVATE ${MBEDTLS_DIR}/library/
+        PRIVATE $<BUILD_INTERFACE:${MBEDTLS_DIR}/library/> $<INSTALL_INTERFACE:library>
         PRIVATE ${thirdparty_inc})
     target_compile_definitions(${target}
         PRIVATE ${thirdparty_def})
     install(TARGETS ${target}
             DESTINATION ${LIB_INSTALL_DIR}
+            EXPORT mbedtls-target
             PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
 endforeach(target)
+
+if(USE_STATIC_MBEDTLS_LIBRARY AND ${CMAKE_PROJECT_NAME} STREQUAL "mbed TLS")
+    export(TARGETS mbedtls
+        APPEND FILE ${PROJECT_BINARY_DIR}/mbedtls-target.cmake)
+
+    install(EXPORT mbedtls-target
+        FILE mbedtls-target.cmake
+        DESTINATION "${CMAKE_EXPORT_DIR}")
+endif(USE_STATIC_MBEDTLS_LIBRARY AND ${CMAKE_PROJECT_NAME} STREQUAL "mbed TLS")
 
 set(lib_target "${MBEDTLS_TARGET_PREFIX}lib")
 
