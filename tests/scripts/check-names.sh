@@ -28,8 +28,8 @@ EOF
     exit
 fi
 
-if grep --version|head -n1|grep GNU >/dev/null; then :; else
-    echo "This script requires GNU grep.">&2
+if grep --version|head -n1|grep -E "GNU|FreeBSD" >/dev/null; then :; else
+    echo "This script requires GNU or FreeBSD grep.">&2
     exit 1
 fi
 
