@@ -14,7 +14,7 @@ void pbkdf2_hmac( int hash, data_t * pw_str, data_t * salt_str,
     mbedtls_md_context_t ctx;
     const mbedtls_md_info_t *info;
 
-    unsigned char key[100];
+    unsigned char key[256];
 
     mbedtls_md_init( &ctx );
 
