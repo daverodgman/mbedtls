@@ -18,3 +18,12 @@ mbedtls_xor:8
 
 Block xor, length 16
 mbedtls_xor:16
+
+Block xor, length 64
+mbedtls_xor:64
+
+Block xor, length 256
+mbedtls_xor:256
+
+Block xor, length 257
+mbedtls_xor:257
