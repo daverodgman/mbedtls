@@ -20,7 +20,7 @@
 
 #include "common.h"
 
-#if defined(MBEDTLS_PSA_CRYPTO_C)
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT)
 
 #include <psa/crypto.h>
 
@@ -146,4 +146,4 @@ int psa_pk_status_to_mbedtls(psa_status_t status)
             return psa_generic_status_to_mbedtls(status);
     }
 }
-#endif /* MBEDTLS_PSA_CRYPTO_C */
+#endif /* MBEDTLS_PSA_CRYPTO_CLIENT */

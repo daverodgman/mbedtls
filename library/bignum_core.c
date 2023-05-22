@@ -17,6 +17,8 @@
  *  limitations under the License.
  */
 
+#include <limits.h>
+
 #include "common.h"
 
 #if defined(MBEDTLS_BIGNUM_C)

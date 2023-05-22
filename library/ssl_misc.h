@@ -54,6 +54,7 @@
 #include "mbedtls/ecjpake.h"
 #endif
 
+#include "mbedtls/error.h"
 #include "mbedtls/pk.h"
 #include "pk_internal.h"
 #include "common.h"

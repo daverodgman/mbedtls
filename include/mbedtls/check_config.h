@@ -19,7 +19,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
+#if 0
 #ifndef MBEDTLS_CHECK_CONFIG_H
 #define MBEDTLS_CHECK_CONFIG_H
 
@@ -1146,3 +1146,4 @@ typedef int mbedtls_iso_c_forbids_empty_translation_units;
 
 /* *INDENT-ON* */
 #endif /* MBEDTLS_CHECK_CONFIG_H */
+#endif

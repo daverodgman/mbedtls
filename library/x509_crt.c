@@ -29,6 +29,8 @@
  *  [SIRO] https://cabforum.org/wp-content/uploads/Chunghwatelecom201503cabforumV4.pdf
  */
 
+#include <limits.h>
+
 #include "common.h"
 
 #if defined(MBEDTLS_X509_CRT_PARSE_C)

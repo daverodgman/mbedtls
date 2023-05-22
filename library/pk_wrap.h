@@ -27,9 +27,9 @@
 
 #include "mbedtls/pk.h"
 
-#if defined(MBEDTLS_PSA_CRYPTO_C)
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT)
 #include "psa/crypto.h"
-#endif /* MBEDTLS_PSA_CRYPTO_C */
+#endif /* MBEDTLS_PSA_CRYPTO_CLIENT */
 
 struct mbedtls_pk_info_t {
     /** Public key type */
@@ -145,7 +145,7 @@ int MBEDTLS_DEPRECATED mbedtls_pk_error_from_psa_ecdsa(psa_status_t status);
 
 #endif /* MBEDTLS_USE_PSA_CRYPTO */
 
-#if defined(MBEDTLS_PSA_CRYPTO_C)
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT)
 #if !defined(MBEDTLS_DEPRECATED_REMOVED)
 int MBEDTLS_DEPRECATED mbedtls_pk_error_from_psa(psa_status_t status);
 
@@ -163,6 +163,6 @@ int mbedtls_pk_psa_rsa_sign_ext(psa_algorithm_t psa_alg_md,
                                 size_t *sig_len);
 #endif /* MBEDTLS_RSA_C */
 
-#endif /* MBEDTLS_PSA_CRYPTO_C */
+#endif /* MBEDTLS_PSA_CRYPTO_CLIENT */
 
 #endif /* MBEDTLS_PK_WRAP_H */

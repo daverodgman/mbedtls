@@ -22,6 +22,8 @@
  *  http://csrc.nist.gov/publications/nistpubs/800-90/SP800-90revised_March2007.pdf
  */
 
+#include <limits.h>
+
 #include "common.h"
 
 #if defined(MBEDTLS_CTR_DRBG_C)

@@ -36,11 +36,11 @@
 #include "mbedtls/ecdsa.h"
 #endif
 
-#if defined(MBEDTLS_RSA_C) && defined(MBEDTLS_PSA_CRYPTO_C)
+#if defined(MBEDTLS_RSA_C) && defined(MBEDTLS_PSA_CRYPTO_CLIENT)
 #include "pkwrite.h"
 #endif
 
-#if defined(MBEDTLS_PSA_CRYPTO_C)
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT)
 #include "mbedtls/psa_util.h"
 #define PSA_PK_TO_MBEDTLS_ERR(status) psa_pk_status_to_mbedtls(status)
 #define PSA_PK_RSA_TO_MBEDTLS_ERR(status) PSA_TO_MBEDTLS_ERR_LIST(status,     \
@@ -51,7 +51,7 @@
                                                                     psa_pk_status_to_mbedtls)
 #endif
 
-#if defined(MBEDTLS_USE_PSA_CRYPTO)
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT)
 #include "psa/crypto.h"
 #include "hash_info.h"
 
@@ -68,7 +68,7 @@
 #include <string.h>
 
 #if !defined(MBEDTLS_DEPRECATED_REMOVED)
-#if defined(MBEDTLS_PSA_CRYPTO_C)
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT)
 int mbedtls_pk_error_from_psa(psa_status_t status)
 {
     switch (status) {
@@ -295,7 +295,7 @@ static int rsa_verify_wrap(mbedtls_pk_context *pk, mbedtls_md_type_t md_alg,
 }
 #endif
 
-#if defined(MBEDTLS_PSA_CRYPTO_C)
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT)
 int  mbedtls_pk_psa_rsa_sign_ext(psa_algorithm_t alg,
                                  mbedtls_rsa_context *rsa_ctx,
                                  const unsigned char *hash, size_t hash_len,

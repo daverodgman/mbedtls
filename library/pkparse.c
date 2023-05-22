@@ -50,7 +50,7 @@
 #include "mbedtls/pkcs12.h"
 #endif
 
-#if defined(MBEDTLS_PSA_CRYPTO_C)
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT)
 #include "mbedtls/psa_util.h"
 #endif
 

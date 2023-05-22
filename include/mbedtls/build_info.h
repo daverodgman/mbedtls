@@ -112,17 +112,17 @@
 #define MBEDTLS_ECP_LIGHT
 #endif
 
-/* If MBEDTLS_PSA_CRYPTO_C is defined, make sure MBEDTLS_PSA_CRYPTO_CLIENT
+/* If MBEDTLS_PSA_CRYPTO_CLIENT is defined, make sure MBEDTLS_PSA_CRYPTO_CLIENTLIENT
  * is defined as well to include all PSA code.
  */
-#if defined(MBEDTLS_PSA_CRYPTO_C)
-#define MBEDTLS_PSA_CRYPTO_CLIENT
-#endif /* MBEDTLS_PSA_CRYPTO_C */
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT)
+#define MBEDTLS_PSA_CRYPTO_CLIENTLIENT
+#endif /* MBEDTLS_PSA_CRYPTO_CLIENT */
 
 /* The PK wrappers need pk_write functions to format RSA key objects
  * when they are dispatching to the PSA API. This happens under USE_PSA_CRYPTO,
  * and also even without USE_PSA_CRYPTO for mbedtls_pk_sign_ext(). */
-#if defined(MBEDTLS_PSA_CRYPTO_C) && defined(MBEDTLS_RSA_C)
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT) && defined(MBEDTLS_RSA_C)
 #define MBEDTLS_PK_C
 #define MBEDTLS_PK_WRITE_C
 #define MBEDTLS_PK_PARSE_C
@@ -185,8 +185,8 @@
 
 /* Make sure all configuration symbols are set before including check_config.h,
  * even the ones that are calculated programmatically. */
-#if defined(MBEDTLS_PSA_CRYPTO_CONFIG) /* PSA_WANT_xxx influences MBEDTLS_xxx */ || \
-    defined(MBEDTLS_PSA_CRYPTO_C) /* MBEDTLS_xxx influences PSA_WANT_xxx */
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENTONFIG) /* PSA_WANT_xxx influences MBEDTLS_xxx */ || \
+    defined(MBEDTLS_PSA_CRYPTO_CLIENT) /* MBEDTLS_xxx influences PSA_WANT_xxx */
 #include "mbedtls/config_psa.h"
 #endif
 

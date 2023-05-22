@@ -40,7 +40,7 @@
 #include "mbedtls/ecdsa.h"
 #endif
 
-#if defined(MBEDTLS_PSA_CRYPTO_C)
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT)
 #include "mbedtls/psa_util.h"
 #define PSA_PK_TO_MBEDTLS_ERR(status) psa_pk_status_to_mbedtls(status)
 #define PSA_PK_RSA_TO_MBEDTLS_ERR(status) PSA_TO_MBEDTLS_ERR_LIST(status,     \
@@ -61,7 +61,7 @@ void mbedtls_pk_init(mbedtls_pk_context *ctx)
 {
     ctx->pk_info = NULL;
     ctx->pk_ctx = NULL;
-#if defined(MBEDTLS_PSA_CRYPTO_C)
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT)
     ctx->priv_id = MBEDTLS_SVC_KEY_ID_INIT;
 #endif /* MBEDTLS_PSA_CRYPTO_C */
 }
@@ -661,7 +661,7 @@ int mbedtls_pk_sign(mbedtls_pk_context *ctx, mbedtls_md_type_t md_alg,
                                        f_rng, p_rng, NULL);
 }
 
-#if defined(MBEDTLS_PSA_CRYPTO_C)
+#if defined(MBEDTLS_PSA_CRYPTO_CLIENT)
 /*
  * Make a signature given a signature type.
  */

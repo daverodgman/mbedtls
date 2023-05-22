@@ -19,6 +19,8 @@
  *  limitations under the License.
  */
 
+#include <limits.h>
+
 #include "common.h"
 
 #if defined(MBEDTLS_OID_C)
