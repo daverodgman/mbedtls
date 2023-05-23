@@ -1071,6 +1071,29 @@ int mbedtls_aes_crypt_cbc(mbedtls_aes_context *ctx,
     const unsigned char *ivp = iv;
 
     if (mode == MBEDTLS_AES_DECRYPT) {
+#if 0
+        /* Iterating backwards reduces the amount of memcpy's into temp
+         * blocks needed when doing in-place decryption. */
+        unsigned char temp_iv[16];
+        input  = input  + length - 16;
+        output = output + length - 16;
+        // Capture the last block of input to return in iv
+        memcpy(temp_iv, input, 16);
+        while (length > 16) {
+            ret = mbedtls_aes_crypt_ecb(ctx, mode, input, temp);
+            if (ret != 0) {
+                goto exit;
+            }
+            mbedtls_xor(output, temp, input - 16, 16);
+
+            input  -= 16;
+            output -= 16;
+            length -= 16;
+        }
+        ret = mbedtls_aes_crypt_ecb(ctx, mode, input, temp);
+        mbedtls_xor(output, temp, iv, 16);
+        memcpy(iv, temp_iv, 16);
+#else
         unsigned char temp2[16];
         while (length > 0) {
             memcpy(temp, input, 16);
@@ -1087,6 +1110,7 @@ int mbedtls_aes_crypt_cbc(mbedtls_aes_context *ctx,
             output += 16;
             length -= 16;
         }
+#endif
     } else {
         while (length > 0) {
             mbedtls_xor(output, input, ivp, 16);
@@ -1102,8 +1126,8 @@ int mbedtls_aes_crypt_cbc(mbedtls_aes_context *ctx,
             length -= 16;
         }
         memcpy(iv, ivp, 16);
+        ret = 0;
     }
-    ret = 0;
 
 exit:
     return ret;
