@@ -71,6 +71,11 @@ int mbedtls_aesni_has_support(unsigned int what)
 
 #if MBEDTLS_AESNI_HAVE_CODE == 2
 
+#if defined(MBEDTLS_TEST_HOOKS)
+/* This is used by tests to determine which implementation got built, to test the implementation selection logic */
+int aesni_implementation_is_intrinsics;
+#endif
+
 /*
  * AES-NI AES-ECB block en(de)cryption
  */
@@ -393,6 +398,11 @@ static void aesni_setkey_enc_256(unsigned char *rk_bytes,
 #endif /* !MBEDTLS_AES_ONLY_128_BIT_KEY_LENGTH */
 
 #else /* MBEDTLS_AESNI_HAVE_CODE == 1 */
+
+#if defined(MBEDTLS_TEST_HOOKS)
+/* This is used by tests to determine which implementation got built, to test the implementation selection logic */
+int aesni_implementation_is_asm;
+#endif
 
 #if defined(__has_feature)
 #if __has_feature(memory_sanitizer)

@@ -3508,10 +3508,22 @@ support_test_aesni () {
     gcc -v 2>&1 | grep Target | grep -q x86_64
 }
 
-component_test_aesni () { # ~ 40s
+component_test_aesni () { # ~ 60s
     msg "build: default config with different AES implementations"
     scripts/config.py set MBEDTLS_AESNI_C
     scripts/config.py set MBEDTLS_HAVE_ASM
+
+    # test we build intrinsics by default, when supported
+    msg "AES tests, test default intrinsics"
+    make clean
+    make library/aesni.o CC=x86_64-linux-gnu-gcc-10 CFLAGS='-O2 -Werror -Wall -Wextra -mpclmul -msse2 -maes -DMBEDTLS_TEST_HOOKS'
+    (objdump -t library/aesni.o | grep -q aesni_implementation_is_intrinsics) || false "intrinsics not built when supported"
+
+    # test we build asm by default, when intrinsics not supported
+    msg "AES tests, test default intrinsics"
+    make clean
+    make library/aesni.o CC=x86_64-linux-gnu-gcc-10 CFLAGS='-O2 -Werror -Wall -Wextra -mno-pclmul -mno-sse2 -mno-aes -DMBEDTLS_TEST_HOOKS'
+    (objdump -t library/aesni.o | grep -q aesni_implementation_is_asm) || false "asm not built when intrinsics not supported"
 
     # test asm
     msg "AES tests, MBEDTLS_AESNI_HAVE_CODE=1 (asm)"
